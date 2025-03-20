@@ -1,5 +1,9 @@
 # ТЗ для стажировки №4
 Корчагин Артём Дмитриевич
 
-![image](https://github.com/user-attachments/assets/4e052f0f-6846-4fb5-87eb-f26e3cd7cd25)
-Результат работы скрипта
+Результат работы скрипта 
+
+![image](https://github.com/user-attachments/assets/7358da98-9355-4ed3-b11a-c724afb949db)
+
+
+![image](https://github.com/user-attachments/assets/34624f60-e3d0-4d70-a319-4ca53ebc7027)
