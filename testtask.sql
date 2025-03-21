@@ -110,19 +110,18 @@ set statistics time on;
 -- CTE для группировки данных
 WITH AggregatedData AS (
     SELECT 
-		-- я думал использовать ли CASE WHEN вместо IIF,
-		-- но подумал, что раз уж сказано написать на T-SQL,
-		-- то нужно использовать фичи T-SQL
-        IIF(DAY(_date) = 1,				-- если дата - первое число месяца
+	-- я думал использовать ли CASE WHEN вместо IIF,
+	-- но подумал, что раз уж сказано написать на T-SQL,
+	-- то нужно использовать фичи T-SQL
+        IIF(DAY(_date) = 1,			-- если дата - первое число месяца
 		FORMAT(_date, 'dd.MM.yyyy'),	-- то дата форматируется так
-		FORMAT(_date, 'MM.yyyy'))		-- в противном случае так
+		FORMAT(_date, 'MM.yyyy'))	-- в противном случае так
 		AS _date,
         SUM(_count) AS _count
     FROM #DateCountTable
     GROUP BY 
-		-- группируется по дате с первым числом и без первого числа
-        IIF(DAY(_date) = 1, FORMAT(_date, 'dd.MM.yyyy'), FORMAT(_date, 'MM.yyyy'))
-		
+	-- группируется по дате с первым числом и без первого числа
+        IIF(DAY(_date) = 1, FORMAT(_date, 'dd.MM.yyyy'), FORMAT(_date, 'MM.yyyy'))	
 )
 
 SELECT 
