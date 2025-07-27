@@ -1,6 +1,7 @@
 CREATE TABLE #Intervals (
-    StartDateTime DATETIME2,
-    EndDateTime DATETIME2
+    StartDateTime DATETIME2 NOT NULL,
+    EndDateTime DATETIME2 NOT NULL,
+    CONSTRAINT ValidInterval CHECK (EndDateTime >= StartDateTime)
 );
 
 INSERT INTO #Intervals (StartDateTime, EndDateTime)
