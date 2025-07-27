@@ -3,7 +3,6 @@ CREATE TABLE #Intervals (
     _endDateTime DATETIME
 );
 
-
 INSERT INTO #Intervals (_startDateTime, _endDateTime)
 VALUES
     ('2018-01-01 06:00:00', '2018-01-01 14:00:00'),
@@ -12,6 +11,7 @@ VALUES
     ('2018-01-02 06:00:00', '2018-01-02 14:00:00'),
     ('2018-01-02 11:00:00', '2018-01-02 19:00:00');
 
+set statistics time on;
 WITH OrderedIntervals AS (
     SELECT 
         _startDateTime,
@@ -35,3 +35,5 @@ GROUP BY GroupID
 ORDER BY _startDateTime;
 
 DROP TABLE #Intervals;
+GO
+set statistics time off
