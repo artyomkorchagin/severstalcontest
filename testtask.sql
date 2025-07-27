@@ -1,9 +1,9 @@
 CREATE TABLE #Intervals (
-    _startDateTime DATETIME,
-    _endDateTime DATETIME
+    StartDateTime DATETIME2,
+    EndDateTime DATETIME2
 );
 
-INSERT INTO #Intervals (_startDateTime, _endDateTime)
+INSERT INTO #Intervals (StartDateTime, EndDateTime)
 VALUES
     ('2018-01-01 06:00:00', '2018-01-01 14:00:00'),
     ('2018-01-01 11:00:00', '2018-01-01 19:00:00'),
@@ -14,25 +14,25 @@ VALUES
 set statistics time on;
 WITH OrderedIntervals AS (
     SELECT 
-        _startDateTime,
-        _endDateTime,
-        LAG(_endDateTime) OVER (ORDER BY _startDateTime) AS PrevEndDateTime
+        StartDateTime,
+        EndDateTime,
+        LAG(EndDateTime) OVER (ORDER BY StartDateTime) AS PrevEndDateTime
     FROM #Intervals
 ),
 GroupBoundaries AS (
     SELECT 
-        _startDateTime,
-        _endDateTime,
-        SUM(IIF(PrevEndDateTime IS NULL OR PrevEndDateTime < _startDateTime, 1, 0))
-        OVER (ORDER BY _startDateTime) AS GroupID
+        StartDateTime,
+        EndDateTime,
+        SUM(IIF(PrevEndDateTime IS NULL OR PrevEndDateTime < StartDateTime, 1, 0))
+        OVER (ORDER BY StartDateTime) AS GroupID
     FROM OrderedIntervals
 )
 SELECT 
-    MIN(_startDateTime) AS _startDateTime,
-    MAX(_endDateTime) AS _endDateTime
+    MIN(StartDateTime) AS StartDateTime,
+    MAX(EndDateTime) AS EndDateTime
 FROM GroupBoundaries
 GROUP BY GroupID
-ORDER BY _startDateTime;
+ORDER BY StartDateTime;
 
 DROP TABLE #Intervals;
 GO
